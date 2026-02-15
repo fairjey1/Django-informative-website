@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio | {{ sitio.nombre_sitio }}{% endblock %}
+
+{% block content %}
+
+<header class="hero-section text-white d-flex align-items-center" style="min-height: 80vh; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80') center/cover;">
+    <div class="container text-center text-md-start">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
+                    Soluciones tecnológicas para tu empresa 💻
+                </h1>
+                <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s" style="font-size: 1.25rem; line-height: 1.8;">
+                    Brindamos el mejor servicio con calidad y eficiencia 🎯
+                </p>
+                <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="{% url 'contact_form' %}" class="btn btn-primary btn-lg px-5 py-3 me-md-3 mb-3 mb-md-0 rounded-pill shadow">
+                        Contactános
+                    </a>
+                    <a href="{% url 'service_list' %}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">
+                        Ver Servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Nuestros Servicios Destacados ✨</h2>
+            <div class="mx-auto bg-primary mb-4" style="height: 4px; width: 60px; border-radius: 2px;"></div>
+            <p class="text-secondary">Conoce las áreas en las que somos expertos.</p>
+        </div>
+
+        <div class="row g-4">
+            {% for servicio in servicios_nav|slice:":3" %} <!-- uso context_proccessors de service -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 transition-hover" style="border-radius: 15px;">
+                    <div class="mb-3">
+                        {% if servicio.icono %}
+                            <i class="fa-solid {{ servicio.icono }} fa-3x text-primary"></i>
+                        {% endif %}
+                    </div>
+                    <h4 class="card-title fw-bold">{{ servicio.titulo }}</h4>
+                    <p class="card-text text-secondary">{{ servicio.descripcion|truncatewords:15 }}</p>
+                    <a href="{% url 'service_detail' servicio.slug %}" class="text-decoration-none fw-bold text-primary mt-auto">
+                        Saber más <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+                <p class="text-center text-muted">Aún no hay servicios destacados.</p>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'service_list' %}" class="btn btn-dark px-4 rounded-pill">Explorar todos los servicios</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-primary text-white text-center">
+    <div class="container py-4">
+        <h2 class="fw-bold mb-3">¿Listo para empezar tu proyecto? 🚀</h2>
+        <p class="lead mb-4 opacity-75">Hablemos sobre cómo podemos ayudarte a alcanzar tus objetivos.</p>
+        <a href="{% url 'contact_form' %}" class="btn btn-light text-primary btn-lg px-5 rounded-pill shadow-sm fw-bold">
+            Contáctanos hoy mismo
+        </a>
+    </div>
+</section>
+
+{% endblock %}

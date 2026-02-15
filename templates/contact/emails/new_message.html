@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .header { background-color: #f8f9fa; padding: 10px; text-align: center; border-bottom: 1px solid #ddd; }
+        .content { padding: 20px; }
+        .footer { font-size: 12px; color: #777; text-align: center; margin-top: 20px; }
+        .label { font-weight: bold; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Nueva consulta web</h2>
+        </div>
+        <div class="content">
+            <p><span class="label">Nombre:</span> {{ nombre }}</p>
+            <p><span class="label">Email:</span> {{ email }}</p>
+            <hr>
+            <p><span class="label">Mensaje:</span></p>
+            <blockquote style="background: #f9f9f9; padding: 10px; border-left: 4px solid #ccc;">
+                {{ mensaje|linebreaksbr }}
+            </blockquote>
+        </div>
+        <div class="footer">
+            <p>Este mensaje fue enviado desde el formulario de tu sitio web.</p>
+        </div>
+    </div>
+</body>
+</html>

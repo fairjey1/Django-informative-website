@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Contacto | {{ sitio.nombre_sitio }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Contáctanos</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_view }} {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        
+                        <button type="submit" class="btn btn-primary w-100 py-2 mt-3">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mt-4 mt-md-0">
+            <div class="bg-dark text-white p-5 rounded-3 h-100">
+                <h3>Información</h3>
+                <p class="mt-4"><i class="fa-solid fa-location-dot me-2"></i> {{ sitio.direccion }}</p>
+                <p><i class="fa-brands fa-whatsapp me-2"></i> {{ sitio.telefono }}</p>
+                <p><i class="fa-solid fa-envelope me-2"></i> {{ sitio.email_contacto }}</p>
+                
+                <div class="mt-5">
+                    <h5>Síguenos</h5>
+                    <a href="{{ sitio.instagram }}" class="text-white me-3"><i class="fa-brands fa-instagram fa-2x"></i></a>
+                    <a href="{{ sitio.facebook }}" class="text-white"><i class="fa-brands fa-facebook fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

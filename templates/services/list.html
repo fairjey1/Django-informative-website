@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Nuestros Servicios | {{ sitio.nombre_sitio }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Lo que ofrecemos</h1>
+    <div class="row">
+        {% for servicio in servicios %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ servicio.imagen.url }}" class="card-img-top" alt="{{ servicio.titulo }}">
+                <div class="card-body text-center"> {% if servicio.icono %}
+                    <div class="mb-3">
+                        <i class="fa-solid {{ servicio.icono }} fa-3x text-primary"></i>
+                    </div>
+                    {% endif %}
+                    
+                    <h5 class="card-title">{{ servicio.titulo }}</h5>
+                    <p class="card-text text-secondary">{{ servicio.descripcion|truncatewords:20 }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'service_detail' servicio.slug %}" class="btn btn-outline-primary w-100">Saber más</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Próximamente publicaremos nuestros servicios.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

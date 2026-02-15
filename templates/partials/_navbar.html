@@ -1,0 +1,82 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top" style="z-index: 1030;">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            {% if sitio.logo %}
+                <img src="{{ sitio.logo.url }}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+            {% endif %}
+            {{ sitio.nombre_sitio }}
+        </a>
+
+        <div class="d-flex align-items-center ms-auto me-3 d-lg-none"> 
+            {% if sitio.instagram %}
+                <a href="{{ sitio.instagram }}" class="me-3 d-flex align-items-center">
+                    <img src="{% static 'img\Instagram_logo_2016.svg.png' %}" alt="Instagram" width="24" height="24" style="object-fit: contain;">
+                </a>
+            {% endif %}
+            
+            {% if sitio.facebook %}
+                <a href="{{ sitio.facebook }}" class="d-flex align-items-center">
+                    <img src="{% static 'img/2023_Facebook_icon.svg.png' %}" alt="Facebook" width="24" height="24" style="object-fit: contain;">
+                </a>
+            {% endif %}
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Servicios
+                    </a>
+                    
+                    <ul class="dropdown-menu dropdown-menu-dark border-0 shadow-sm mt-0" aria-labelledby="navbarDropdown">
+                        
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center fw-bold py-2 text-warning" href="{% url 'service_list' %}">
+                                <i class="fa-solid fa-layer-group me-2"></i> Ver todos
+                            </a>
+                        </li>
+                        
+                        <li><hr class="dropdown-divider border-secondary opacity-50"></li>
+                        
+                        {% for s in servicios_nav %}
+                            <li>
+                                <a class="dropdown-item py-2 ps-4" href="{% url 'service_detail' s.slug %}">
+                                    <i class="fa-solid fa-angle-right me-2 text-secondary small"></i>
+                                    {{ s.titulo }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_form' %}">Contáctanos</a>
+                </li>
+
+                <li class="nav-item ms-lg-3 d-none d-lg-block">
+                    {% if sitio.instagram %}
+                        <a href="{{ sitio.instagram }}" class="btn btn-outline-light btn-sm rounded-circle">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    {% endif %}
+                </li>
+                <li class="nav-item ms-lg-3 d-none d-lg-block">
+                    {% if sitio.facebook %}
+                        <a href="{{ sitio.facebook }}" class="btn btn-outline-light btn-sm rounded-circle">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

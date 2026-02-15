@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ servicio.titulo }} | {{ sitio.nombre_sitio }}{% endblock %}
+
+{% block content %}
+<article class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'service_list' %}">Servicios</a></li>
+                <li class="breadcrumb-item active">{{ servicio.titulo }}</li>
+              </ol>
+            </nav>
+
+            <h1 class="display-4 fw-bold mb-4"> 
+                {% if servicio.icono %}
+                    <i class="fa-solid {{ servicio.icono }} me-3 text-primary"></i>
+                {% endif %}
+                {{ servicio.titulo }}
+            </h1>
+            
+            {% if servicio.imagen %}
+                <img src="{{ servicio.imagen.url }}" class="img-fluid rounded-4 shadow mb-5" alt="{{ servicio.titulo }}">
+            {% endif %}
+
+            <div class="service-content lead text-secondary" style="line-height: 1.8;">
+                {{ servicio.descripcion|linebreaks }}
+            </div>
+
+            {% if servicio.imagenes.all %}
+                <hr class="my-5">
+                <h3 class="mb-4">Galería de trabajos realizados</h3>
+
+                <div id="carouselDesktop" class="carousel slide shadow-lg rounded-4 overflow-hidden d-none d-md-block" data-bs-ride="carousel">
+                    
+                    <div class="carousel-indicators">
+                        {% for foto in servicio.imagenes.all %}
+                            <button type="button" data-bs-target="#carouselDesktop" data-bs-slide-to="{{ forloop.counter0 }}" 
+                                class="{% if forloop.first %}active{% endif %}" aria-current="true"></button>
+                        {% endfor %}
+                    </div>
+
+                    <div class="carousel-inner">
+                        {% for foto in servicio.imagenes.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ foto.imagen.url }}" class="d-block w-100" alt="Trabajo {{ forloop.counter }}" 
+                                    style="height: 500px; object-fit: cover;">
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDesktop" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDesktop" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+
+                <style>
+                    .mobile-gallery-wrapper {
+                        /* Solo visible en móvil */
+                        display: block; 
+                    }
+                    .gallery-snap-container {
+                        display: flex;
+                        overflow-x: auto;
+                        scroll-snap-type: x mandatory;
+                        gap: 15px;
+                        padding-bottom: 10px;
+                        -webkit-overflow-scrolling: touch; /* Suavidad nativa en iOS */
+                        scrollbar-width: none; /* Ocultar scrollbar en Firefox */
+                    }
+                    /* Ocultar scrollbar en Chrome/Safari */
+                    .gallery-snap-container::-webkit-scrollbar { 
+                        display: none; 
+                    }
+                    .gallery-snap-item {
+                        scroll-snap-align: center;
+                        flex: 0 0 85%; /* Muestra el 85% de la foto para invitar a deslizar */
+                        border-radius: 12px;
+                        overflow: hidden;
+                        position: relative;
+                        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    }
+                </style>
+
+                <div class="d-md-none"> <div class="gallery-snap-container">
+                        {% for foto in servicio.imagenes.all %}
+                            <div class="gallery-snap-item">
+                                <img src="{{ foto.imagen.url }}" alt="Trabajo Móvil" style="width: 100%; height: 350px; object-fit: cover;">
+                                <div class="position-absolute bottom-0 start-0 w-100 bg-dark bg-opacity-50 text-white p-2 text-center small">
+                                    {{ forloop.counter }} / {{ servicio.imagenes.count }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="text-center text-muted mt-2 animate__animated animate__pulse animate__infinite">
+                        <small><i class="fa-solid fa-arrow-right-long"></i> Desliza para ver más</small>
+                    </div>
+                </div>
+
+            {% endif %}
+
+            {% if servicio.precio %}
+                <div class="alert alert-info mt-4">
+                    <h4 class="alert-heading">Precio: ${{ servicio.precio }}</h4>
+                </div>
+            {% endif %}
+
+            {% if servicio.faqs.all %}
+                <hr class="my-5">
+                <h3 class="mb-4">Preguntas Frecuentes</h3>
+                <div class="accordion" id="faqAccordion">
+                    {% for faq in servicio.faqs.all %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ forloop.counter }}">
+                                    {{ faq.pregunta }}
+                                </button>
+                            </h2>
+                            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    {{ faq.respuesta|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <hr class="my-5">
+
+            <div class="bg-light p-4 rounded-3 border">
+                <h4>¿Te interesa este servicio?</h4>
+                <p>Contáctanos hoy mismo para obtener un presupuesto personalizado.</p>
+                <a href="{% url 'contact_form' %}" class="btn btn-primary btn-lg mt-2">
+                    <i class="fas fa-envelope"></i> Consultar por Email
+                </a>
+                <a href="https://wa.me/{{ sitio.telefono }}" target="_blank" class="btn btn-success btn-lg mt-2">
+                    <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}

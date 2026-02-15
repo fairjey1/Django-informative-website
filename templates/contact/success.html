@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Mensaje Enviado | {{ sitio.nombre_sitio }}{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="min-height: 60vh; display: flex; align-items: center;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-8 col-lg-6 text-center">
+            
+            <div class="mb-4">
+                <i class="fa-solid fa-circle-check text-success fa-6x animate__animated animate__bounceIn"></i>
+            </div>
+
+            <h1 class="display-5 fw-bold mb-3">¡Recibimos tu email!</h1>
+
+            <p class="lead text-secondary mb-5">
+                Gracias por escribirnos. Hemos recibido tu consulta correctamente y obtendrás una respuesta de nuestro equipo muy pronto.
+            </p>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-4 gap-3 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-house me-2"></i> Volver al Inicio
+                </a>
+                
+                <a href="{% url 'service_list' %}" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+                    Ver Servicios
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
