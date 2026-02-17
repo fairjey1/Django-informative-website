@@ -150,3 +150,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Correo por defecto para los envíos automáticos
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Le decimos a Django que confíe en el HTTPS del servidor proxy (Railway)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
