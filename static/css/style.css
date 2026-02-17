@@ -1,0 +1,219 @@
+/* Efecto hover en los links */
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+/* Estilo para el dropdown en desktop */
+@media (min-width: 992px) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; 
+    }
+}
+
+.sticky-top {
+    background-color: rgba(33, 37, 41, 0.95) !important; /* Un poco transparente */
+    backdrop-filter: blur(10px); /* Difumina lo que hay detrás */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Ajuste del logo */
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+.navbar-brand:hover img {
+    transform: scale(1.1);
+}
+
+/* === MEJORA DEL NAVBAR EN MÓVIL === */
+
+/* Solo aplica en pantallas menores a 992px (Móviles y Tablets verticales) */
+@media (max-width: 991.98px) {
+    /* 1. Aseguramos que toda la lista de navegación esté centrada */
+    .navbar-nav {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .nav-item {
+        width: 100%; /* Para que ocupe todo el ancho disponible */
+    }
+
+    /* 2. CENTRADO DEL BOTÓN "SERVICIOS" */
+    .navbar-nav .nav-link.dropdown-toggle {
+        display: flex;             /* Activamos flexbox */
+        justify-content: center;   /* Centrado horizontal */
+        align-items: center;       /* Centrado vertical */
+        width: 100%;               /* Ancho total */
+    }
+
+    /* 3. Ajuste opcional para la flechita (caret) */
+    .dropdown-toggle::after {
+        margin-left: 10px; /* Un poco de aire entre el texto y la flecha */
+    }
+    
+    /* Quitamos el fondo oscuro fuerte y los bordes para que parezca integrado */
+    .navbar-collapse .dropdown-menu-dark {
+        background-color: transparent; /* Fondo transparente */
+        border: none;
+        box-shadow: none;
+        padding-left: 20px; /* Indentación para jerarquía */
+        padding-top: 0;
+    }
+
+    /* Estilo de los enlaces en móvil */
+    .navbar-collapse .dropdown-menu-dark .dropdown-item {
+        color: rgba(255, 255, 255, 0.7); /* Blanco un poco apagado */
+        border-left: 1px solid rgba(255, 255, 255, 0.1); /* Línea guía sutil a la izquierda */
+        border-radius: 0;
+    }
+
+    /* Al pasar el mouse o tocar */
+    .navbar-collapse .dropdown-menu-dark .dropdown-item:hover,
+    .navbar-collapse .dropdown-menu-dark .dropdown-item:focus {
+        background-color: transparent;
+        color: #ffc107; /* Color de acento (amarillo/dorado) */
+        border-left-color: #ffc107;
+        padding-left: 1.5rem; /* Pequeña animación de movimiento */
+        transition: all 0.2s ease;
+    }
+
+    /* El divisor horizontal */
+    .dropdown-divider {
+        display: none; /* En móvil a veces sobra el divisor */
+    }
+}
+
+/* === PEQUEÑO DETALLE PARA DESKTOP === */
+@media (min-width: 992px) {
+    .dropdown-menu-dark {
+        /* En PC sí queremos que sea una caja flotante bonita */
+        background-color: #343a40; 
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+}
+
+/* --- 1. ANIMACIÓN PARA DESKTOP (Fade In + Subida leve) --- */
+@media (min-width: 992px) {
+    .dropdown-menu {
+        display: block; /* Sobrescribimos a Bootstrap para poder animar */
+        opacity: 0;
+        visibility: hidden; /* Lo ocultamos visualmente pero sigue ahí */
+        transform: translateY(20px); /* Empieza 20px más abajo */
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Efecto rebote sutil */
+        pointer-events: none; /* Evita clicks accidentales cuando es invisible */
+    }
+
+    /* Cuando Bootstrap agrega la clase .show */
+    .dropdown-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0); /* Sube a su posición original */
+        pointer-events: auto; /* Reactiva los clicks */
+    }
+}
+
+/* --- 2. ANIMACIÓN PARA MÓVIL (Acordeón / Despliegue) --- */
+@media (max-width: 991.98px) {
+    .dropdown-menu {
+        display: block; /* Necesario para animar height */
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden; /* Corta el contenido si está cerrado */
+        transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+        
+        /* Ajustes para que no ocupe espacio extra cerrado */
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        border: none;
+    }
+
+    .dropdown-menu.show {
+        /* Un valor suficientemente alto para que quepan tus items, 
+           pero no infinito para que la animación funcione */
+        max-height: 500px; 
+        opacity: 1;
+        
+        /* Restauramos el padding al abrirse */
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+}
+
+/* Footer Map Styles */
+.map-container iframe {
+    width: 100% !important; /* Fuerza al mapa a ocupar el ancho de la columna */
+    height: 200px !important; /* Altura fija para que no sea muy alto */
+    display: block;
+}
+
+.hover-white:hover {
+    color: #fff !important;
+    transition: color 0.3s ease;
+}
+
+.grayscale-img {
+    filter: grayscale(100%) brightness(200%); /* Hace el logo blanco para el footer */
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;       /* Distancia desde abajo */
+    right: 30px;        /* Distancia desde la derecha */
+    background-color: #25d366; /* Verde oficial de WhatsApp */
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    /* Sombras para dar efecto 3D y despegue */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;      /* Asegura que esté por encima de todo (footers, modales) */
+    
+    /* Centrado interno del icono (Flexbox) */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Transición suave para el hover */
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse por encima */
+.whatsapp-float:hover {
+    transform: scale(1.1) translateY(-5px); /* Crece un poquito y sube */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Ajuste del tamaño de tu imagen SVG */
+.whatsapp-icon {
+    width: 35px;
+    height: 35px;
+    /* Si tu SVG es negro por defecto, puedes intentar descomentar esto para hacerlo blanco: */
+    /* filter: invert(100%); */
+}
+
+/* Ajuste para pantallas móviles */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+    .whatsapp-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.transition-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.transition-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
