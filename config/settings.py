@@ -157,4 +157,16 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Le decimos a Django que confíe en el HTTPS del servidor proxy (Railway)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Configuración moderna de almacenamiento para Django 5+
+STORAGES = {
+    # Aquí le decimos que los archivos Media (fotos subidas) van a Cloudinary
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    # Aquí aseguramos que el CSS y diseño siga siendo manejado por WhiteNoise
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
