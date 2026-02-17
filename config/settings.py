@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
+import cloudinary
 
 load_dotenv()
 
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',  # Para almacenamiento en Cloudinary
+    'cloudinary',  # Para manejo de imágenes con Cloudinary
     'apps.core',
     'apps.services',
     'apps.contact',
@@ -153,3 +156,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Le decimos a Django que confíe en el HTTPS del servidor proxy (Railway)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
