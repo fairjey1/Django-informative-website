@@ -150,7 +150,6 @@ EMAIL_PORT = 587  # <--- CORREGIDO: Puerto correcto para Resend con TLS
 EMAIL_USE_TLS = True  
 EMAIL_USE_SSL = False   
 
-EMAIL_TIMEOUT = 10
 
 EMAIL_HOST_USER = 'resend'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
