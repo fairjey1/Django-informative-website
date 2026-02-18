@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.services',
     'apps.contact',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -143,17 +144,17 @@ MEDIA_URL = '/media/'    # <--- CORREGIDO (Barra inicial agregada)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 
 
-# Configuración de SMTP para envío de correos
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # <--- CORREGIDO: Usamos el backend SMTP real para producción
-EMAIL_HOST = 'smtp.resend.com'
-EMAIL_PORT = 587  # <--- CORREGIDO: Puerto correcto para Resend con TLS
-EMAIL_USE_TLS = True  
-EMAIL_USE_SSL = False   
+## --- CONFIGURACIÓN DE CORREO VÍA API (HTTPS) ---
+# Usamos Anymail para conectar con Resend sin usar puertos SMTP bloqueados
+EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
 
+ANYMAIL = {
+    # Reutilizamos la variable que ya pusiste en Railway para no tener que crear otra
+    "RESEND_API_KEY": os.getenv('EMAIL_HOST_PASSWORD'),
+}
 
-EMAIL_HOST_USER = 'resend'
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'onboarding@resend.dev'
+# OBLIGATORIO: El remitente debe ser este para pruebas gratuitas
+DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
 
 # Le decimos a Django que confíe en el HTTPS del servidor proxy (Railway)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
