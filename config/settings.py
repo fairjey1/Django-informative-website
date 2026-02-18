@@ -145,14 +145,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configuración de SMTP para envío de correos
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # <--- CORREGIDO: Usamos el backend SMTP real para producción
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.resend.com'
 EMAIL_PORT = 465  # <--- CORREGIDO: Usamos el puerto SSL
 EMAIL_USE_TLS = False  # <--- CORREGIDO: Desactivamos TLS explícito
 EMAIL_USE_SSL = True   # <--- CORREGIDO: Activamos SSL directo
 
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_USER = 'resend'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'onboarding@resend.dev'
 
 # Le decimos a Django que confíe en el HTTPS del servidor proxy (Railway)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
