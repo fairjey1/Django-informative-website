@@ -144,10 +144,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Configuración de SMTP para envío de correos
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # <--- CORREGIDO: Usamos el backend SMTP real para producción
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465  # <--- CAMBIO: Usamos el puerto SSL
-EMAIL_USE_TLS = False  # <--- CAMBIO: Desactivamos TLS explícito
-EMAIL_USE_SSL = True   # <--- CAMBIO: Activamos SSL directo
+EMAIL_PORT = 465  # <--- CORREGIDO: Usamos el puerto SSL
+EMAIL_USE_TLS = False  # <--- CORREGIDO: Desactivamos TLS explícito
+EMAIL_USE_SSL = True   # <--- CORREGIDO: Activamos SSL directo
 
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
