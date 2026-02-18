@@ -135,38 +135,34 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # Carpeta raíz de desarrollo
-STATIC_ROOT = BASE_DIR / 'staticfiles' # Carpeta donde se recopilan los archivos estáticos para producción
+STATIC_URL = '/static/'  # <--- CORREGIDO (Barra inicial agregada)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] 
+STATIC_ROOT = BASE_DIR / 'staticfiles' 
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Donde se guardan las fotos reales
+MEDIA_URL = '/media/'    # <--- CORREGIDO (Barra inicial agregada)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 
 
 # Configuración de SMTP para envío de correos
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-# Correo por defecto para los envíos automáticos
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Le decimos a Django que confíe en el HTTPS del servidor proxy (Railway)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Configuración moderna de almacenamiento para Django 5+
 STORAGES = {
-    # Aquí le decimos que los archivos Media (fotos subidas) van a Cloudinary
+    # Los archivos Media (fotos subidas en el Admin) van a Cloudinary
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
-    # Aquí aseguramos que el CSS y diseño siga siendo manejado por WhiteNoise
+    # El CSS y JS usan el sistema seguro por defecto para evitar errores 500
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
