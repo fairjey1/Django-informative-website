@@ -1,5 +1,5 @@
 # Web de informativa en Django 🚀
-Este es un proyecto web full-stack que desarrollé para poner en práctica mis conocimientos de backend. Está pensado como una web informativa para ofrecer servicios (actualmente configurado para un negocio genérico), pero su arquitectura es escalable para otros rubros.
+Este es un proyecto web que desarrollé para poner en práctica mis conocimientos de backend. Está pensado como una web informativa para ofrecer servicios (actualmente configurado para un negocio genérico), pero su arquitectura es escalable para otros rubros.
 
 ## 🛠️ Tecnologías que usé
 
