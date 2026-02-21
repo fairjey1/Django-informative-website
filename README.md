@@ -1,4 +1,4 @@
-# Web de informativa en Django 🚀
+# Web de informativa en Django 🚀 [link](https://web-production-b99c7.up.railway.app/)
 Este es un proyecto web que desarrollé para poner en práctica mis conocimientos de backend. Está pensado como una web informativa para ofrecer servicios (actualmente configurado para un negocio genérico), pero su arquitectura es escalable para otros rubros.
 
 ## 🛠️ Tecnologías que usé
